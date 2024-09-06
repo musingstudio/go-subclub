@@ -18,9 +18,10 @@ type Client struct {
 	APIKey string
 }
 
-func NewClient() *Client {
+func NewClient(key string) *Client {
 	return &Client{
 		Client: &http.Client{Timeout: timeoutSec * time.Second},
 		Config: NewClientConfig(apiURL, "go-subclub"),
+		APIKey: key,
 	}
 }
