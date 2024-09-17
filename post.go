@@ -23,6 +23,16 @@ type (
 		PostID  string `json:"postId"`
 		Content string `json:"content"`
 	}
+
+	// PostDeleteParams has parameters for deleting a sub.club post.
+	PostDeleteParams struct {
+		PostID string `json:"postId"`
+	}
+
+	// PostDeleteResult represents an API response after deleting a sub.club post.
+	PostDeleteResult struct {
+		Deleted bool `json:"deleted"`
+	}
 )
 
 func (c *Client) Post(pp *PostParams) (*Post, error) {
@@ -58,3 +68,18 @@ func (c *Client) EditPost(pup *PostUpdateParams) (*Post, error) {
 	return p, nil
 }
 
+func (c *Client) DeletePost(pdp *PostDeleteParams) (*PostDeleteResult, error) {
+	res := &PostDeleteResult{}
+
+	env, err := c.post("/post/delete", pdp, res)
+	if err != nil {
+		return nil, err
+	}
+
+	var ok bool
+	if res, ok = env.(*PostDeleteResult); !ok {
+		return nil, fmt.Errorf("wrong data returned from API")
+	}
+
+	return res, nil
+}
