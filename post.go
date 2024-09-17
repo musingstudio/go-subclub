@@ -5,6 +5,7 @@ import (
 )
 
 type (
+	// Post represents a post result on the sub.club API.
 	Post struct {
 		Success bool `json:"success"`
 
@@ -14,6 +15,7 @@ type (
 		URL    string `json:"url"`
 	}
 
+	// PostParams holds the parameters for creating a new sub.club post.
 	PostParams struct {
 		Content string `json:"content"`
 	}
@@ -35,6 +37,7 @@ type (
 	}
 )
 
+// Post creates a new post on sub.club with the given parameters.
 func (c *Client) Post(pp *PostParams) (*Post, error) {
 	p := &Post{}
 
@@ -68,6 +71,7 @@ func (c *Client) EditPost(pup *PostUpdateParams) (*Post, error) {
 	return p, nil
 }
 
+// DeletePost deletes a post with the given postID.
 func (c *Client) DeletePost(postID string) (*PostDeleteResult, error) {
 	res := &PostDeleteResult{}
 

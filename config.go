@@ -20,6 +20,7 @@ type ClientConfig struct {
 	UserAgent string
 }
 
+// NewClientConfig creates a ClientConfig from the given parameters to supply to a Client.
 func NewClientConfig(baseURL, userAgent string) *ClientConfig {
 	return &ClientConfig{
 		BaseURL:   baseURL,
