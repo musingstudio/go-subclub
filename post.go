@@ -6,8 +6,12 @@ import (
 
 type (
 	Post struct {
-		Success bool   `json:"success"`
-		Post    string `json:"post"`
+		Success bool `json:"success"`
+
+		PostID string `json:"postId"`
+		Post   string `json:"post"`
+		URI    string `json:"uri"`
+		URL    string `json:"url"`
 	}
 
 	PostParams struct {
