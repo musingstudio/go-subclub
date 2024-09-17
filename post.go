@@ -68,10 +68,10 @@ func (c *Client) EditPost(pup *PostUpdateParams) (*Post, error) {
 	return p, nil
 }
 
-func (c *Client) DeletePost(pdp *PostDeleteParams) (*PostDeleteResult, error) {
+func (c *Client) DeletePost(postID string) (*PostDeleteResult, error) {
 	res := &PostDeleteResult{}
 
-	env, err := c.post("/post/delete", pdp, res)
+	env, err := c.post("/post/delete", &PostDeleteParams{PostID: postID}, res)
 	if err != nil {
 		return nil, err
 	}
