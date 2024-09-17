@@ -34,3 +34,27 @@ func TestEditPost(t *testing.T) {
 
 	t.Logf("Updated post: %+v", p)
 }
+
+func TestDeletePost(t *testing.T) {
+	c := NewClient(os.Getenv("API_KEY"))
+
+	p, err := c.Post(&PostParams{
+		Content: "This post will be deleted.",
+	})
+	if err != nil {
+		t.Error(err)
+	}
+	if !p.Success {
+		t.Fatalf("FAILED to post")
+	}
+
+	t.Logf("Posted: %+v", p)
+
+	r, err := c.DeletePost(p.PostID)
+	if err != nil {
+		t.Error(err)
+	}
+	if !r.Deleted {
+		t.Fatalf("NOT deleted")
+	}
+}
