@@ -54,7 +54,7 @@ func TestDeletePost(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	if !p.Success {
+	if p == nil || !p.Success {
 		t.Fatalf("FAILED to post")
 	}
 
