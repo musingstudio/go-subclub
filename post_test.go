@@ -21,18 +21,28 @@ func TestPost(t *testing.T) {
 func TestEditPost(t *testing.T) {
 	c := NewClient(os.Getenv("API_KEY"))
 
-	p, err := c.EditPost(&PostUpdateParams{
-		PostID:  os.Getenv("POST_ID"),
-		Content: "Test post (updated)",
+	p, err := c.Post(&PostParams{
+		Content: "This post will be edited.",
 	})
 	if err != nil {
 		t.Error(err)
 	}
-	if !p.Success {
-		t.Fatalf("Success: %t", p.Success)
+	if p == nil || !p.Success {
+		t.Fatalf("FAILED to post")
 	}
 
-	t.Logf("Updated post: %+v", p)
+	ep, err := c.EditPost(&PostUpdateParams{
+		PostID:  p.PostID,
+		Content: "UPDATED post!",
+	})
+	if err != nil {
+		t.Error(err)
+	}
+	if !ep.Success {
+		t.Fatalf("Success: %t", ep.Success)
+	}
+
+	t.Logf("Updated post: %+v", ep)
 }
 
 func TestDeletePost(t *testing.T) {
