@@ -18,7 +18,7 @@ func TestPost(t *testing.T) {
 	t.Logf("Post: %+v", p)
 }
 
-func TestEditPost(t *testing.T) {
+func TestUpdatePost(t *testing.T) {
 	c := NewClient(os.Getenv("API_KEY"))
 
 	p, err := c.Post(&PostParams{
@@ -31,8 +31,7 @@ func TestEditPost(t *testing.T) {
 		t.Fatalf("FAILED to post")
 	}
 
-	ep, err := c.EditPost(&PostUpdateParams{
-		PostID:  p.PostID,
+	ep, err := c.UpdatePost(p.PostID, &PostParams{
 		Content: "UPDATED post!",
 	})
 	if err != nil {
