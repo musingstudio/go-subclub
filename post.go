@@ -20,8 +20,8 @@ type (
 		Content string `json:"content"`
 	}
 
-	// PostUpdateParams has parameters for editing a sub.club post.
-	PostUpdateParams struct {
+	// postUpdateParams is an internal struct for editing a sub.club post.
+	postUpdateParams struct {
 		PostID  string `json:"postId"`
 		Content string `json:"content"`
 	}
@@ -54,10 +54,14 @@ func (c *Client) Post(pp *PostParams) (*Post, error) {
 	return p, nil
 }
 
-// EditPost edits the given post with the supplied PostUpdateParams.
-func (c *Client) EditPost(pup *PostUpdateParams) (*Post, error) {
+// UpdatePost edits the given post with the supplied PostParams.
+func (c *Client) UpdatePost(postID string, pp *PostParams) (*Post, error) {
 	p := &Post{}
 
+	pup := &postUpdateParams{
+		PostID:  postID,
+		Content: pp.Content,
+	}
 	env, err := c.post("/post/edit", pup, p)
 	if err != nil {
 		return nil, err
